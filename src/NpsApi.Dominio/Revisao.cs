@@ -1,7 +1,10 @@
-﻿namespace NpsApi.Dominio
+﻿using MongoDB.Bson.Serialization.Attributes;
+
+namespace NpsApi.Dominio
 {
     public class Revisao
     {
+        [BsonId]
         public Guid Id { get; private set; } = Guid.NewGuid();
         public string NomeProduto { get; private set; }
         public int Score { get; private set; }

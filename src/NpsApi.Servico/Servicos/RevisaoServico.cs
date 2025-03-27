@@ -22,14 +22,8 @@ namespace NpsApi.Servico.Servicos
         public async Task<RelatorioNpsDto> BuscaRelatorioNpsAsync()
         {
             var revisoes = await _revisaoRepositorio.BuscaTodasRevisoesAsync();
-            var total = revisoes.Count;
-            if (total == 0) return new RelatorioNpsDto(0, 0, 0, 0);
-
-            var promotores = revisoes.Count(r => r.Score >= 4);
-            var detratores = revisoes.Count(r => r.Score <= 2);
-
-            var nps = ((double)(promotores - detratores) / total) * 100;
-            return new RelatorioNpsDto(nps, promotores, detratores, total);
+            var relatorio = RelatorioNps.Calcular(revisoes);
+            return new RelatorioNpsDto(relatorio.Nps, relatorio.Promotores, relatorio.Detratores, relatorio.Total);
         }
     }
 }

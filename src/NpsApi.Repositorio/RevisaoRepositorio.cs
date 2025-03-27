@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MongoDB.Driver;
 using NpsApi.Dominio;
 using NpsApi.Repositorio.Interfaces;
 
@@ -6,22 +6,22 @@ namespace NpsApi.Repositorio
 {
     public class RevisaoRepositorio : IRevisaoRepositorio
     {
-        private readonly AppDbContext _context;
-
-        public RevisaoRepositorio(AppDbContext context)
+        private readonly MongoDbContext _contexto;
+        public RevisaoRepositorio(MongoDbContext contexto)
         {
-            _context = context;
+            _contexto = contexto;
         }
 
         public async Task AdicionaRevisaoAsync(Revisao revisao)
         {
-            await _context.Revisoes.AddAsync(revisao);
-            await _context.SaveChangesAsync();
+            var colecao = _contexto.BuscaTodasRevisoes();  
+            await colecao.InsertOneAsync(revisao);
         }
 
         public async Task<List<Revisao>> BuscaTodasRevisoesAsync()
         {
-            return await _context.Revisoes.ToListAsync();
+            var colecao = _contexto.BuscaTodasRevisoes();
+            return await colecao.Find(FilterDefinition<Revisao>.Empty).ToListAsync();
         }
     }
 }

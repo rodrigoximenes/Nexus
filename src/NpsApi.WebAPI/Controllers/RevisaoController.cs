@@ -8,9 +8,9 @@ namespace NpsApi.WebAPI.Controllers
     [ApiController]
     public class RevisaoController : ControllerBase
     {
-        private readonly RevisaoServico _revisaoServico;
+        private readonly IRevisaoServico _revisaoServico;
 
-        public RevisaoController(RevisaoServico revisaoServico)
+        public RevisaoController(IRevisaoServico revisaoServico)
         {
             _revisaoServico = revisaoServico;
         }

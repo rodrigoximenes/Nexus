@@ -1,34 +1,41 @@
-using Microsoft.EntityFrameworkCore;
-using NpsApi.Repositorio.Interfaces;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 using NpsApi.Repositorio;
+using NpsApi.Repositorio.Interfaces;
 using NpsApi.Servico.Servicos;
+using NpsApi.WebAPI.Setup;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.Configure<MongoDbSettings>(
+    builder.Configuration.GetSection("MongoDbSettings"));
 
-// Configuração do banco de dados (PostgreSQL)
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
+{
+    var mongoSettings = serviceProvider.GetRequiredService<IOptions<MongoDbSettings>>().Value;
+    return new MongoClient(mongoSettings.ConnectionString);
+});
 
-// Configuração de repositórios e serviços
+builder.Services.AddSingleton<IMongoDatabase>(serviceProvider =>
+{
+    var mongoSettings = serviceProvider.GetRequiredService<IOptions<MongoDbSettings>>().Value;
+    var client = serviceProvider.GetRequiredService<IMongoClient>();
+    return client.GetDatabase(mongoSettings.DatabaseName);
+});
+
+builder.Services.AddSingleton<MongoDbContext>();
+
 builder.Services.AddScoped<IRevisaoRepositorio, RevisaoRepositorio>();
 builder.Services.AddScoped<IRevisaoServico, RevisaoServico>();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
