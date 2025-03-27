@@ -22,7 +22,7 @@ Este é um projeto para cálculo do NPS, desenvolvido utilizando .NET Core e Mon
 2. Configure a string de conexão do MongoDB no `appsettings.json`:
    ```json
    "MongoDbSettings": {
-     "ConnectionString": "mongodb://root:senha@localhost:27017/admin",
+     "ConnectionString": "mongodb://root:sua-senha@localhost:27017/admin",
      "DatabaseName": "seuBancoDeDados"
    }
    ```
