@@ -3,13 +3,14 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
 # Copia os arquivos da solução
-COPY ./NpsApi.sln ./
+COPY ../NpsApi.sln ./
 
 # Copia os arquivos .csproj de todos os projetos
 COPY ./src/NpsApi.Repositorio/*.csproj ./src/NpsApi.Repositorio/
 COPY ./src/NpsApi.WebAPI/*.csproj ./src/NpsApi.WebAPI/
 COPY ./src/NpsApi.Dominio/*.csproj ./src/NpsApi.Dominio/
 COPY ./src/NpsApi.Servico/*.csproj ./src/NpsApi.Servico/
+COPY ./src/NpsApi.Dominio.Tests/*.csproj ./src/NpsApi.Dominio.Tests/
 
 # Restaura dependências
 RUN dotnet restore

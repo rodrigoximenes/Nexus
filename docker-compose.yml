@@ -1,44 +1,33 @@
 version: '3.8'
 
 services:
-  api:
-    build:
-      context: .
-      dockerfile: src/NpsApi.WebAPI/Dockerfile
-    container_name: nps-api
-    depends_on:
-      - mongo
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Docker
-      - ConnectionStrings__DefaultConnection=mongodb://root:sua-senha@mongo:27017/admin
-      - ASPNETCORE_HTTP_PORTS=8080
-      - ASPNETCORE_HTTPS_PORTS=8081
-      - ASPNETCORE_URLS=http://+:8080
-    ports:
-      - "5000:8080"
-      - "5001:5001"
-    command: >
-      bash -c "dotnet NpsApi.WebAPI.dll"
-    networks:
-      - app-network
-
-  mongo:
-    image: mongo:latest
-    container_name: mongo
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=sua-senha
+  nexus-mongo:
+    image: mongo
+    container_name: nexus-mongo
     volumes:
       - mongo-data:/data/db
     ports:
       - "27017:27017"
     networks:
-      - app-network
-    restart: always
+      - net-nexus
+    command: ["--noauth"]
+
+  nexus-api:
+    build:
+      context: .
+      dockerfile: src/NpsApi.WebAPI/Dockerfile
+    container_name: nexus-api-container
+    ports:
+      - "8080:8080"
+    networks:
+      - net-nexus
+    depends_on:
+      - nexus-mongo
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
 
 networks:
-  app-network:
-    driver: bridge
+  net-nexus:
 
 volumes:
   mongo-data:
