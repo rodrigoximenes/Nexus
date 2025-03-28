@@ -11,7 +11,8 @@ Este é um projeto para cálculo do NPS, desenvolvido utilizando .NET Core e Mon
 
 ## Como Rodar o Projeto
 
-### Rodando Localmente
+### Rodando via Docker Compose
+
 
 1. Clone o repositório:
    ```bash
@@ -19,50 +20,14 @@ Este é um projeto para cálculo do NPS, desenvolvido utilizando .NET Core e Mon
    cd npsapi
    ```
 
-2. Configure a string de conexão do MongoDB no `appsettings.json`:
-   ```json
-   "MongoDbSettings": {
-     "ConnectionString": "mongodb://root:sua-senha@localhost:27017/admin",
-     "DatabaseName": "seuBancoDeDados"
-   }
-   ```
-
-3. Inicie o MongoDB localmente:
-   ```bash
-   docker run -d \
-     --name mongo \
-     -e MONGO_INITDB_ROOT_USERNAME=root \
-     -e MONGO_INITDB_ROOT_PASSWORD=sua-senha \
-     -v mongo-data:/data/db \
-     -p 27017:27017 \
-     mongo:latest
-   ```
-
-4. Execute a API:
-   ```bash
-   dotnet run --project src/NpsApi.WebAPI/NpsApi.WebAPI.csproj
-   ```
-
-5. Acesse a documentação Swagger:
-   - URL: [http://localhost:5000/swagger](http://localhost:5000/swagger)
-
----
-
-### Rodando via Docker Compose
-
-1. Suba os contêineres com o Docker Compose:
+2. Suba os contêineres com o Docker Compose:
    ```bash
    docker-compose up -d
    ```
 
-2. Acesse a API:
-   - **Swagger:** [http://localhost:5000/swagger](http://localhost:5000/swagger)
+3. Acesse a API:
+   - **Swagger:** [http://localhost:8080/swagger](http://localhost:8080/swagger)
    - **MongoDB:** Rodando na porta 27017
-
-3. Para parar os contêineres:
-   ```bash
-   docker-compose down
-   ```
 
 ## Cálculo do NPS
 O NPS é um método utilizado para medir a satisfação dos clientes e sua lealdade à marca.

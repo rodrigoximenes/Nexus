@@ -1,4 +1,4 @@
 ﻿namespace NpsApi.Servico.DTOs
 {
-    public record RevisaoDto(string NomeProduto, int Score, string? Comentario);
+    public record RelatorioNpsDto(double NpsScore, int Promotores, int Detratores, int TotalRevisoes);
 }
