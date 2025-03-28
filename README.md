@@ -16,13 +16,13 @@ Este é um projeto para cálculo do NPS, desenvolvido utilizando .NET Core e Mongo
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/npsapi.git
-   cd npsapi
+   git clone https://github.com/rodrigoximenes/Nexus.git
+   cd Nexus
    ```
 
 2. Suba os contêineres com o Docker Compose:
    ```bash
-   docker-compose up -d
+   docker-compose up 
    ```
 
 3. Acesse a API:
@@ -43,7 +43,10 @@ O NPS é um método utilizado para medir a satisfação dos clientes e sua lealdade 
    NPS = \% de Promotores - \% de Detratores
    \]
 
-
+## Backlog Imediato:
+. Tratamento de exceção global via Middleware;
+. Uso de notificações invés de exceções;
+. Testes unitários em todas as camadas;
 
 
 
