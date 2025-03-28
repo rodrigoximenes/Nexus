@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  nexus-mongo:
+    image: mongo
+    container_name: nexus-mongo
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - net-nexus
+    command: ["--noauth"]
+
+  nexus-api:
+    build:
+      context: .
+      dockerfile: src/NpsApi.WebAPI/Dockerfile
+    container_name: nexus-api-container
+    ports:
+      - "8080:8080"
+    networks:
+      - net-nexus
+    depends_on:
+      - nexus-mongo
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+
+networks:
+  net-nexus:
+
+volumes:
+  mongo-data:

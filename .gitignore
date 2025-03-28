@@ -1,0 +1,65 @@
+## Diretórios de build e binários
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+## Configurações de ambiente (não versionar credenciais)
+appsettings.Development.json
+appsettings.Production.json
+
+## Entity Framework Core Migrations (opcional, remova se quiser versioná-las)
+Migrations/
+
+## Pacotes e dependências do NuGet
+*.nupkg
+*.snupkg
+packages/
+
+## Logs e arquivos de cobertura de código
+*.tlog
+*.log
+CodeCoverage/
+
+## Arquivos de build e logs de teste
+*.binlog
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+## Arquivos específicos de ferramentas de teste
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+
+## Configurações do Visual Studio e Rider
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Arquivos temporários e backup
+~$*
+*~
+
+## Arquivos do Docker (não versionar configurações locais)
+docker-compose.override.yml
