@@ -13,12 +13,18 @@ namespace NpsApi.Dominio
 
         public Revisao(string nomeProduto, int score, string? comentario = null)
         {
-            if (score < 0 || score > 5)
-                throw new ArgumentException("A pontuação deve estar entre 0 e 5.");
+            this.ValidaRevisao(nomeProduto, score);
 
             NomeProduto = nomeProduto;
             Score = score;
             Comentario = comentario;
+        }
+
+        private void ValidaRevisao(string nomeProduto, int score)
+        {
+            if (score < 0 || score > 5) throw new ArgumentException("A pontuação deve estar entre 0 e 5.");
+
+            if (string.IsNullOrEmpty(nomeProduto)) throw new ArgumentException("O nome do produto não pode ser nulo ou vazio.");
         }
     }
 }
